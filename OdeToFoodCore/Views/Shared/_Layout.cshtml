@@ -13,33 +13,47 @@
                 <a class="navbar-brand" href="/">OdeToFood</a>
             </div>
             <div class="navbar-right">
-
+                <button class="btn">PlaceHolder</button>
             </div>
         </div>
     </nav>
-    <div>
+    <div class="container">
         @RenderBody()
-    </div>
-    <footer>
-        @RenderSection("footer", required: false)
-        @await Component.InvokeAsync("Greeter")
-        @if (User.Identity.IsAuthenticated)
-        {
-            foreach (var identity in User.Identities)
+        <footer>
+            @RenderSection("footer", required: false)
+            @await Component.InvokeAsync("Greeter")
+            @if (User.Identity.IsAuthenticated)
             {
-                <h3>@identity.Name</h3>
-                <ul>
-                    @foreach (var claim in identity.Claims)
-                    {
-                        <li>@claim.Type - @claim.Value</li>
-                    }
-                </ul>
+                foreach (var identity in User.Identities)
+                {
+                    <h3>@identity.Name</h3>
+                    <ul>
+                        @foreach (var claim in identity.Claims)
+                        {
+                            <li>@claim.Type - @claim.Value</li>
+                        }
+                    </ul>
+                }
             }
-        }
-        else
-        {
-            <div>You are anonymous!</div>
-        }
-    </footer>
+            else
+            {
+                <div>You are anonymous!</div>
+            }
+        </footer>
+    </div>
+    <environment include="Development">
+        <script src="~/node_modules/jquery/dist/jquery.js"></script>
+        <script src="~/node_modules/jquery-validation/dist/jquery.validate.js"></script>
+        <script src="~/node_modules/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.js"></script>
+    </environment>
+    
+    <environment exclude="Developement">
+        <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"
+                asp-fallback-src="~/node_modules/jquery/dist/jquery.js"
+                asp-fallback-test="window.JQuery"
+                crossorigin="anonymous"
+                integrity="">
+        </script>
+    </environment>
 </body>
 </html>
